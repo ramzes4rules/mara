@@ -3,7 +3,7 @@ package mara
 func (mara *Mara) Info(service string, text string) {
 
 	// Getting formatted message
-	var message = mara.getMessage(Info, service, text)
+	var message = mara.getMessage(Info+" ", service, text)
 
 	// Checking logging level
 	if mara.LogLevel == Error {
