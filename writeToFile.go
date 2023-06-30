@@ -25,8 +25,15 @@ func (mara *Mara) writeToFile(msg string) {
 		_ = os.Mkdir(f, 0666)
 	}
 
+	// replace macros in file name
+	var name = filepath.Base(mara.Path)
+	name = strings.Replace(name, "{MONTH}", fmt.Sprintf("%s", time.Now().Month()), -1)
+	name = strings.Replace(name, "{YYYY}", fmt.Sprintf("%d", time.Now().Year()), -1)
+	name = strings.Replace(name, "{MM}", fmt.Sprintf("%02d", time.Now().Month()), -1)
+	name = strings.Replace(name, "{DD}", fmt.Sprintf("%02d", time.Now().Day()), -1)
+
 	// Открываем файл на запись
-	file, err := os.OpenFile(fmt.Sprintf("%s\\%s", f, filepath.Base(mara.Path)), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(fmt.Sprintf("%s\\%s", f, name), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		return
 	}
